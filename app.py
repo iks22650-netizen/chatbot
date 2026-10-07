@@ -344,14 +344,34 @@ def show_openai_error(error: Exception, action: str) -> None:
         st.error(f"{action} 중 오류가 발생했습니다: {error}")
 
 
+def configure_openai_api_key() -> bool:
+    """Cloud의 Secrets를 우선 사용하고, 로컬 개발 시에는 .env를 사용합니다."""
+    load_dotenv(dotenv_path=PROJECT_DIR / ".env")
+
+    # Streamlit Community Cloud의 Secrets 값은 GitHub 저장소에 포함되지 않습니다.
+    try:
+        secret_key = st.secrets.get("OPENAI_API_KEY")
+    except FileNotFoundError:
+        secret_key = None
+
+    api_key = secret_key or os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return False
+
+    # LangChain의 OpenAIEmbeddings와 ChatOpenAI가 표준 환경 변수에서 키를 읽도록 설정합니다.
+    os.environ["OPENAI_API_KEY"] = str(api_key)
+    return True
+
+
 def main() -> None:
     """Streamlit 화면의 질문-검색-답변 흐름입니다."""
     st.set_page_config(page_title="공무원 여비 RAG 챗봇", page_icon="📚", layout="wide")
     st.title("📚 공무원 여비 RAG 챗봇")
     st.caption("규정 PDF의 구조·원문 키워드·의미 검색을 함께 사용해 답변합니다.")
-    load_dotenv(dotenv_path=PROJECT_DIR / ".env")
-    if not os.getenv("OPENAI_API_KEY"):
-        st.error(".env 파일의 OPENAI_API_KEY에 OpenAI API 키를 입력한 뒤 다시 실행해 주세요.")
+    if not configure_openai_api_key():
+        st.error("OpenAI API 키가 설정되지 않았습니다.")
+        st.code('OPENAI_API_KEY = "sk-..."', language="toml")
+        st.caption("로컬에서는 .env를, Streamlit Cloud에서는 App settings의 Secrets를 사용하세요.")
         st.stop()
 
     files = list_source_files()
