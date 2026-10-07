@@ -1,0 +1,50 @@
+[
+  {
+    "id": "travel_days_rule",
+    "question": "여행일수는 어떻게 계산하나요?",
+    "expected_pages": [["2024년 9장 공무원여비업무 처리기준.pdf", 11]],
+    "should_refuse": false
+  },
+  {
+    "id": "weekend_personal_extension",
+    "question": "출장 중 주말이 끼어 있을 때 여비가 포함되나요?",
+    "expected_pages": [["2024년 9장 공무원여비업무 처리기준.pdf", 11], ["2024년 9장 공무원여비업무 처리기준.pdf", 12]],
+    "should_refuse": false
+  },
+  {
+    "id": "weather_delay",
+    "question": "기상악화로 출장일정을 초과해 숙박하면 여비를 추가로 받을 수 있나요?",
+    "expected_pages": [["공무원여비100문100답.pdf", 31]],
+    "should_refuse": false
+  },
+  {
+    "id": "domestic_lodging_limit",
+    "question": "2박 3일 국내 출장의 숙박비는 어떻게 계산하나요?",
+    "expected_pages": [["2024년 9장 공무원여비업무 처리기준.pdf", 54]],
+    "should_refuse": false
+  },
+  {
+    "id": "public_vehicle_daily_allowance",
+    "question": "공용차량을 이용한 날의 일비는 얼마를 지급하나요?",
+    "expected_pages": [["2024년 9장 공무원여비업무 처리기준.pdf", 57]],
+    "should_refuse": false
+  },
+  {
+    "id": "airport_lodging",
+    "question": "국외 출장 비행기 일정 때문에 국내에서 숙박하면 숙박비를 받을 수 있나요?",
+    "expected_pages": [["공무원여비100문100답.pdf", 31]],
+    "should_refuse": false
+  },
+  {
+    "id": "foreign_return_day",
+    "question": "국외 출장 귀국 당일 일비는 국내와 국외 중 무엇을 적용하나요?",
+    "expected_pages": [["공무원여비100문100답.pdf", 35]],
+    "should_refuse": false
+  },
+  {
+    "id": "unrelated_question",
+    "question": "공무원 연가를 며칠까지 사용할 수 있나요?",
+    "expected_pages": [],
+    "should_refuse": true
+  }
+]
